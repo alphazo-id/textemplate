@@ -1,0 +1,142 @@
+\documentclass[12pt,a4paper,twoside]{report}
+\input{./headers/quite.tex}
+\input{./headers/fonts.tex}
+\usepackage[a4paper, asymmetric]{geometry}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{wallpaper}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{pgf-umlsd}
+\usetikzlibrary{positioning}
+\usepackage{verbatim}
+\usepackage[explicit]{titlesec}
+\usepackage{xltxtra}
+\usepackage{enumitem}
+\usepackage{epigraph}
+\usepackage{etoolbox}
+\usepackage[cache=false]{minted}
+
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+\renewcommand\textflush{flushright}
+\makeatletter
+\newlength\epitextskip
+\pretocmd{\@epitext}{\em}{}{}
+\apptocmd{\@epitext}{\em}{}{}
+\patchcmd{\epigraph}{\@epitext{#1}\\}{\@epitext{#1}\\[\epitextskip]}{}{}
+\makeatother
+
+\setlength\epigraphrule{0.1pt}
+\setlength\epitextskip{2ex}
+\setlength\epigraphwidth{.8\textwidth}
+
+
+\setlength{\headheight}{0.5cm}
+\setlength{\headsep}{0.5cm}
+\setlength{\footskip}{1.5cm}
+\setlength{\textwidth}{15cm}
+\setlength{\textheight}{22cm}
+\setlength{\marginparwidth}{150pt}
+\setlength{\topmargin}{0.2em}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1.0}
+
+
+\definecolor{MyOrange}{HTML}{DE411B}
+\definecolor{MyGray}{HTML}{48535B}
+
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.eps}
+\graphicspath{{images/}}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[RE]{
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[minimum height=1em, shift={(10.5cm, 2cm)}] at (current page.south west) {\includegraphics[width=\textwidth + 5em,height=1em]{Footer_left.png}};
+            \node[minimum height=1em, shift={(2.5cm, 2cm)}] at (current page.south west) {\thepage};
+        \end{tikzpicture}
+    }
+    \fancyfoot[RO]{
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[minimum height=1em, shift={(10.5cm, 2cm)}] at (current page.south west) {\includegraphics[width=\textwidth + 5em,height=1em]{Footer_right.png}};
+            \node[minimum height=1em, shift={(18.4cm, 2cm)}] at (current page.south west) {\thepage};
+        \end{tikzpicture}
+    }
+    \fancyhead[LE]{
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[minimum height=1.5em, shift={(-3.5cm, -2cm)}] at (current page.north east) {\includegraphics[width=5em]{Logo.png}};
+            \node[minimum height=1em, shift={(3.5cm, -2.2cm)}] at (current page.north west) {\color{MyOrange}{\footnotesize{\MyTitle}}};
+        \end{tikzpicture}
+    }
+    \fancyhead[RO]{
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[minimum height=1.5em, shift={(3.5cm, -2cm)}] at (current page.north west) {\includegraphics[width=5em]{Logo.png}};
+            \node[minimum height=1em, shift={(-3.5cm, -2.2cm)}] at (current page.north east) {\color{MyOrange}{\footnotesize{\MyTitle}}};
+        \end{tikzpicture}
+    }
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+
+\newcommand{\ENTitle}[2]{
+    \def\MyTitle{#1}
+    \begin{titlepage}
+        \vspace*{7cm}
+        \begin{center}
+            \ThisCenterWallPaper{1.0}{Firstpage.png}
+            \null\hfill\textcolor{MyOrange}{\fontsize{30}{10}\selectfont{\textbf{\MyTitle}}}
+            \\*
+            \null\hfill\textcolor{MyGray}{#2}
+            \\*
+            \vspace*{11cm}
+            \small\textcolor{MyGray}{\today}
+        \end{center}
+    \end{titlepage}
+    \tableofcontents
+    \pagestyle{plain}
+}
+
+\renewcommand*\contentsname{Summary}
+
+\newcommand{\setaccent}[1]{
+	{\setlength{\parindent}{0cm}
+		{\colorbox{MyOrange}
+      {\parbox[c][12pt][c]{15pt}
+		    {\hfil\color{white}\Large!\hfil}
+      }
+    }
+		{\color{MyGray}\large\sffamily{#1}} \\
+	}
+}
+
+\titleformat{\chapter}[block]
+  {\normalfont}
+  {\colorbox{MyOrange}{\parbox[c][12pt][c]{12pt}{%
+      \hfil\color{white}\Huge\thechapter\hfil}}}
+  {0pt}
+  {\hspace*{1em}\parbox[b][0pt][c]{\textwidth}{\color{MyOrange}\large\sffamily#1} \\\color{MyOrange}\titlerule}
+      
+\titlespacing*{\chapter}
+  {0pt}{0.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+
+\titleformat{\section}[block]
+  {\normalfont}
+  {\color{MyOrange}\Large\thesection}
+  {5pt}
+  {\color{MyOrange}\large#1\\\hfil\color{MyOrange}\titlerule}
+
+\titlespacing*{\section}
+  {0pt}{0pt}{0pt}
+
+\fboxsep=3mm%padding thickness
+\fboxrule=0.1pt%border thickness
